@@ -1,0 +1,7 @@
+FROM python:3.8-alpine
+
+COPY . /log-message-processor
+WORKDIR /log-message-processor
+
+EXPOSE 6379
+CMD pip3 install -r requirements.txt; REDIS_HOST=127.0.0.1 REDIS_PORT=6379 REDIS_CHANNEL=log_channel python3 main.py

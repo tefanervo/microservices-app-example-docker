@@ -1,0 +1,9 @@
+FROM node:8.17.0-alpine
+
+COPY . /todos-api
+WORKDIR /todos-api
+
+#  Build service
+RUN npm install
+
+CMD JWT_SECRET=PRFT TODO_API_PORT=8082 npm start

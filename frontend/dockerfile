@@ -1,0 +1,16 @@
+FROM node:8.17.0-alpine
+
+#Install dependencies
+RUN apk --no-cache add \
+    python3 \
+    openjdk8
+
+COPY . /frontend
+WORKDIR /frontend
+
+#Build service
+RUN npm install
+
+#This will build and start the service when we run the container
+RUN npm run build
+CMD PORT=8080 AUTH_API_ADDRESS=http://127.0.0.1:8000 TODOS_API_ADDRESS=http://127.0.0.1:8082 npm start

@@ -1,0 +1,15 @@
+FROM golang:1.18
+
+COPY . /auth-api
+WORKDIR /auth-api
+
+#Set up go
+ENV GO111MODULE=on
+
+#Build go service
+RUN go mod init github.com/tefaardila/microservice-app-example/tree/master/auth-api
+RUN go mod tidy
+RUN go build
+
+# Running
+CMD  JWT_SECRET=PRFT AUTH_API_PORT=8000 USERS_API_ADDRESS=http://127.0.0.1:8083 ./auth-api
